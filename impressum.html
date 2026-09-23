@@ -71,18 +71,26 @@ footer{margin-top:34px;color:var(--leise);font-size:13px}
 <h1>Mentions légales</h1>
 <div class="karte recht"><b>Mentions obligatoires selon le droit allemand (§ 5 DDG)</b><br>Ajdin Hasić<br>Gießener Str. 17<br>35435 Wettenberg<br>zmaj.lernapp@gmail.com<br>USt-IdNr.: DE465139848<br><br>L'application Zmaj est développée en Allemagne : ce sont donc les informations qu'exige le droit allemand, au § 5 de la loi sur les services numériques (Digitale-Dienste-Gesetz, DDG).<br><br><b>Contact</b><br>Pour toute question sur Zmaj, le plus rapide est de nous écrire par e-mail, à l'adresse indiquée ci-dessus.<br><br><b>Règlement des litiges de consommation</b><br>Nous ne sommes ni tenus ni disposés à participer à une procédure de règlement des litiges devant un organisme de médiation de la consommation.</div>
 </section>
-<footer><nav><a href="index.html">Start</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="konto-loeschen.html">Daten löschen</a></nav><br>Ajdin Hasić · Gießener Str. 17 · 35435 Wettenberg · zmaj.lernapp@gmail.com · USt-IdNr.: DE465139848</footer>
+<footer><nav><span data-fuss="de"><a href="index.html">Start</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="konto-loeschen.html">Daten löschen</a></span><span data-fuss="en" hidden><a href="index.html">Home</a> · <a href="datenschutz.html">Privacy</a> · <a href="nutzungsbedingungen.html">Terms of use</a> · <a href="konto-loeschen.html">Delete your data</a></span><span data-fuss="tr" hidden><a href="index.html">Ana Sayfa</a> · <a href="datenschutz.html">Gizlilik</a> · <a href="nutzungsbedingungen.html">Kullanım koşulları</a> · <a href="konto-loeschen.html">Verilerini sil</a></span><span data-fuss="sv" hidden><a href="index.html">Start</a> · <a href="datenschutz.html">Integritet</a> · <a href="nutzungsbedingungen.html">Användarvillkor</a> · <a href="konto-loeschen.html">Radera dina data</a></span><span data-fuss="nl" hidden><a href="index.html">Home</a> · <a href="datenschutz.html">Privacy</a> · <a href="nutzungsbedingungen.html">Gebruiksvoorwaarden</a> · <a href="konto-loeschen.html">Je gegevens wissen</a></span><span data-fuss="nb" hidden><a href="index.html">Forsiden</a> · <a href="datenschutz.html">Personvern</a> · <a href="nutzungsbedingungen.html">Bruksvilkår</a> · <a href="konto-loeschen.html">Slett dataene dine</a></span><span data-fuss="da" hidden><a href="index.html">Forside</a> · <a href="datenschutz.html">Privatliv</a> · <a href="nutzungsbedingungen.html">Brugsvilkår</a> · <a href="konto-loeschen.html">Slet dine data</a></span><span data-fuss="fr" hidden><a href="index.html">Accueil</a> · <a href="datenschutz.html">Confidentialité</a> · <a href="nutzungsbedingungen.html">Conditions d'utilisation</a> · <a href="konto-loeschen.html">Supprimer tes données</a></span></nav><br>Ajdin Hasić · Gießener Str. 17 · 35435 Wettenberg · zmaj.lernapp@gmail.com · USt-IdNr.: DE465139848</footer>
 </div>
 <script>
 (function(){
   var knoepfe = document.querySelectorAll('.sprachen button');
   var teile = document.querySelectorAll('section[data-sprache]');
+  var fuesse = document.querySelectorAll('[data-fuss]');
   function zeige(code){
     var gefunden = false;
     teile.forEach(function(s){
       var an = s.dataset.sprache === code;
       s.hidden = !an;
       if(an) gefunden = true;
+    });
+    // Die Fusszeile wandert mit. Gibt es sie in der Sprache nicht,
+    // bleibt die englische stehen - wie beim Inhalt darueber.
+    var hatFuss = false;
+    fuesse.forEach(function(f){ if(f.dataset.fuss === code) hatFuss = true; });
+    fuesse.forEach(function(f){
+      f.hidden = hatFuss ? (f.dataset.fuss !== code) : (f.dataset.fuss !== 'en');
     });
     knoepfe.forEach(function(b){ b.setAttribute('aria-current', b.dataset.sprache === code); });
     document.documentElement.lang = code;
