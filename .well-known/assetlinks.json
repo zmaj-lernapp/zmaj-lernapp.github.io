@@ -1,0 +1,29 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.smartdragon.zmaj",
+      "sha256_cert_fingerprints": [
+        "8D:0C:02:AF:0B:3F:6F:11:AC:66:49:E4:1C:A2:9E:68:58:88:33:71:E3:92:1A:15:B6:B2:D1:53:7B:79:D4:C4",
+        "A5:64:D5:7F:D4:71:6C:4D:EB:DD:A8:95:21:55:7F:34:A9:77:3E:2F:73:94:09:A7:64:EF:9A:62:14:70:17:9B"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.smartdragon.zmaj.test",
+      "sha256_cert_fingerprints": [
+        "F1:F6:22:5B:7C:61:AC:49:6B:D5:03:DA:B0:00:7B:9C:DD:C7:43:7A:EC:1B:6C:6D:40:3A:C4:2E:CC:C9:E8:86"
+      ]
+    }
+  }
+]
