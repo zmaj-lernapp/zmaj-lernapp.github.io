@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-pxKKDAsvHfMQ2t/e1cLw9vQcfpXLg54fSPVC0JbCB+Q=' 'sha256-DvsEmg6gj3a8xJ0I8Zt32yWbnYAKS4RMwH2q9BJ+UHM='; style-src 'sha256-OO39dCVhCIrQxKM3Q4KIXK0+/sop0bPKgZj7V+SMEWk='; img-src 'self'; connect-src https://identitytoolkit.googleapis.com https://firestore.googleapis.com; form-action 'none'; base-uri 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zmaj – Kontakt</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="icon-256.png">
+<style>
+:root{--bg:#0B1533;--karte:#132048;--linie:#24366e;--text:#EAF0FF;
+      --leise:#9FB0D9;--gelb:#FFCB1F;--blau:#3F66DF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.65;
+     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+     font-size:16px}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 70px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.marke{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.marke span{color:var(--gelb)}
+h1{font-size:26px;margin:0 0 18px}
+a{color:var(--blau)}
+a:hover{color:var(--gelb)}
+.sprachen{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 26px;padding:0;list-style:none}
+.sprachen button{font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--linie);
+  background:var(--karte);color:var(--leise)}
+.sprachen button[aria-current="true"]{background:var(--blau);color:#fff;border-color:var(--blau)}
+.karte{background:var(--karte);border:1px solid var(--linie);border-radius:16px;padding:20px 22px}
+.recht{color:var(--leise);font-size:15px}
+.recht b{color:var(--text);display:inline-block;margin-top:16px}
+.recht b:first-child{margin-top:0}
+footer{margin-top:34px;color:var(--leise);font-size:13px}
+.knopf{display:inline-block;margin:6px 8px 0 0;padding:12px 18px;border-radius:12px;
+  background:var(--karte);border:1px solid var(--linie);color:var(--text);
+  font-weight:700;text-decoration:none}
+.knopf:hover{border-color:var(--blau);color:var(--text)}
+@media (max-width:520px){.wrap{padding:20px 14px 50px}h1{font-size:22px}}
+
+.kontakt label{display:block;font-weight:700;margin:16px 0 6px}
+.kontakt textarea,.kontakt input{width:100%;font:inherit;color:var(--text);background:var(--bg);
+  border:1px solid var(--linie);border-radius:12px;padding:11px 13px}
+.kontakt textarea{min-height:170px;resize:vertical}
+.kontakt textarea:focus,.kontakt input:focus{outline:2px solid var(--blau);outline-offset:1px}
+.kontakt button{font:inherit;font-weight:700;cursor:pointer;margin-top:8px;padding:12px 22px;
+  border-radius:12px;border:0;background:var(--blau);color:#fff}
+.kontakt button:disabled{opacity:.55;cursor:default}
+.falle{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.meldung{min-height:1.6em;margin:14px 0 0;font-weight:700}
+.meldung.gut{color:var(--gelb)}
+.meldung.schlecht{color:#FF8A80}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="marke">Zmaj<span>.</span></div></header>
+<ul class="sprachen"><li><button type="button" data-sprache="de">Deutsch</button></li><li><button type="button" data-sprache="en">English</button></li><li><button type="button" data-sprache="tr">Türkçe</button></li><li><button type="button" data-sprache="sv">Svenska</button></li><li><button type="button" data-sprache="nl">Nederlands</button></li><li><button type="button" data-sprache="nb">Norsk bokmål</button></li><li><button type="button" data-sprache="da">Dansk</button></li><li><button type="button" data-sprache="fr">Français</button></li></ul>
+<section data-sprache="de" lang="de" hidden>
+<h1>Kontakt</h1>
+<div class="karte">
+<p>Schreib uns hier, wir antworten per E-Mail. Du erreichst uns auch direkt unter <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Das Formular braucht JavaScript. Schreib uns sonst per E-Mail an <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="de" method="post" data-sendet="Wird gesendet …" data-danke="Danke! Deine Nachricht ist angekommen. Wir antworten dir per E-Mail." data-fehler="Das hat nicht geklappt. Versuch es später noch einmal oder schreib uns per E-Mail." data-kein-netz="Keine Verbindung. Prüfe dein Internet und versuch es noch einmal.">
+<label for="nachricht-de">Deine Nachricht</label>
+<textarea id="nachricht-de" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-de">Deine E-Mail-Adresse für die Antwort</label>
+<input id="antwort-de" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-de">Website</label><input id="website-de" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Wir verwenden deine Nachricht und deine Adresse nur, um dir zu antworten. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+<button type="submit" disabled>Absenden</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="en" lang="en" hidden>
+<h1>Contact</h1>
+<div class="karte">
+<p>Write to us here and we will reply by email. You can also reach us directly at <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">The form needs JavaScript. Otherwise write to us by email at <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="en" method="post" data-sendet="Sending …" data-danke="Thank you! Your message has arrived. We will reply by email." data-fehler="That did not work. Please try again later or write to us by email." data-kein-netz="No connection. Check your internet and try again.">
+<label for="nachricht-en">Your message</label>
+<textarea id="nachricht-en" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-en">Your email address for our reply</label>
+<input id="antwort-en" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-en">Website</label><input id="website-en" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">We use your message and your address only to reply to you. More in the <a href="datenschutz.html">privacy policy</a>.</p>
+<button type="submit" disabled>Send</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="tr" lang="tr" hidden>
+<h1>İletişim</h1>
+<div class="karte">
+<p>Bize buradan yaz, e-postayla yanıt veririz. Bize doğrudan <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a> adresinden de ulaşabilirsin.</p>
+<noscript><p class="recht">Form için JavaScript gerekiyor. Aksi hâlde bize <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a> adresine e-posta yaz.</p></noscript>
+<form class="kontakt" data-sprache="tr" method="post" data-sendet="Gönderiliyor …" data-danke="Teşekkürler! Mesajın bize ulaştı. Sana e-postayla yanıt vereceğiz." data-fehler="Gönderilemedi. Daha sonra yeniden dene ya da bize e-postayla yaz." data-kein-netz="Bağlantı yok. İnternetini kontrol et ve yeniden dene.">
+<label for="nachricht-tr">Mesajın</label>
+<textarea id="nachricht-tr" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-tr">Yanıt için e-posta adresin</label>
+<input id="antwort-tr" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-tr">Website</label><input id="website-tr" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Mesajını ve adresini yalnızca sana yanıt vermek için kullanırız. Ayrıntılar <a href="datenschutz.html">gizlilik politikasında</a>.</p>
+<button type="submit" disabled>Gönder</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="sv" lang="sv" hidden>
+<h1>Kontakt</h1>
+<div class="karte">
+<p>Skriv till oss här, så svarar vi via e-post. Du når oss också direkt på <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Formuläret kräver JavaScript. Mejla oss annars på <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="sv" method="post" data-sendet="Skickar …" data-danke="Tack! Ditt meddelande har kommit fram. Vi svarar dig via e-post." data-fehler="Det gick inte. Försök igen senare eller mejla oss." data-kein-netz="Ingen anslutning. Kontrollera din internetanslutning och försök igen.">
+<label for="nachricht-sv">Ditt meddelande</label>
+<textarea id="nachricht-sv" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-sv">Din e-postadress för svaret</label>
+<input id="antwort-sv" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-sv">Website</label><input id="website-sv" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Vi använder ditt meddelande och din adress bara för att svara dig. Mer om det i <a href="datenschutz.html">integritetspolicyn</a>.</p>
+<button type="submit" disabled>Skicka</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="nl" lang="nl" hidden>
+<h1>Contact</h1>
+<div class="karte">
+<p>Schrijf ons hier, we antwoorden per e-mail. Je kunt ons ook rechtstreeks bereiken via <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Het formulier heeft JavaScript nodig. Mail ons anders op <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="nl" method="post" data-sendet="Wordt verstuurd …" data-danke="Bedankt! Je bericht is aangekomen. We antwoorden je per e-mail." data-fehler="Dat is niet gelukt. Probeer het later opnieuw of stuur ons een e-mail." data-kein-netz="Geen verbinding. Controleer je internet en probeer het opnieuw.">
+<label for="nachricht-nl">Je bericht</label>
+<textarea id="nachricht-nl" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-nl">Je e-mailadres voor ons antwoord</label>
+<input id="antwort-nl" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-nl">Website</label><input id="website-nl" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">We gebruiken je bericht en je adres alleen om je te antwoorden. Meer daarover in de <a href="datenschutz.html">privacyverklaring</a>.</p>
+<button type="submit" disabled>Versturen</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="nb" lang="nb" hidden>
+<h1>Kontakt</h1>
+<div class="karte">
+<p>Skriv til oss her, så svarer vi på e-post. Du når oss også direkte på <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Skjemaet trenger JavaScript. Ellers kan du sende oss en e-post på <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="nb" method="post" data-sendet="Sender …" data-danke="Takk! Meldingen din har kommet fram. Vi svarer deg på e-post." data-fehler="Det gikk ikke. Prøv igjen senere, eller send oss en e-post." data-kein-netz="Ingen forbindelse. Sjekk internettet ditt og prøv igjen.">
+<label for="nachricht-nb">Meldingen din</label>
+<textarea id="nachricht-nb" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-nb">E-postadressen din for svaret</label>
+<input id="antwort-nb" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-nb">Website</label><input id="website-nb" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Vi bruker meldingen og adressen din bare til å svare deg. Mer om dette i <a href="datenschutz.html">personvernerklæringen</a>.</p>
+<button type="submit" disabled>Send</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="da" lang="da" hidden>
+<h1>Kontakt</h1>
+<div class="karte">
+<p>Skriv til os her, så svarer vi pr. e-mail. Du kan også skrive direkte til <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Formularen kræver JavaScript. Ellers kan du skrive til os på <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="da" method="post" data-sendet="Sender …" data-danke="Tak! Din besked er kommet frem. Vi svarer dig pr. e-mail." data-fehler="Det lykkedes ikke. Prøv igen senere, eller skriv til os pr. e-mail." data-kein-netz="Ingen forbindelse. Tjek din internetforbindelse, og prøv igen.">
+<label for="nachricht-da">Din besked</label>
+<textarea id="nachricht-da" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-da">Din e-mailadresse til svaret</label>
+<input id="antwort-da" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-da">Website</label><input id="website-da" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Vi bruger kun din besked og din adresse til at svare dig. Læs mere i <a href="datenschutz.html">privatlivspolitikken</a>.</p>
+<button type="submit" disabled>Send</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<section data-sprache="fr" lang="fr" hidden>
+<h1>Contact</h1>
+<div class="karte">
+<p>Écris-nous ici, nous te répondrons par e-mail. Tu peux aussi nous joindre directement à <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p>
+<noscript><p class="recht">Le formulaire a besoin de JavaScript. Sinon, écris-nous par e-mail à <a href="mailto:zmaj.lernapp@gmail.com">zmaj.lernapp@gmail.com</a>.</p></noscript>
+<form class="kontakt" data-sprache="fr" method="post" data-sendet="Envoi en cours …" data-danke="Merci ! Ton message est bien arrivé. Nous te répondrons par e-mail." data-fehler="Ça n&#x27;a pas marché. Réessaie plus tard ou écris-nous par e-mail." data-kein-netz="Pas de connexion. Vérifie ton accès à Internet et réessaie.">
+<label for="nachricht-fr">Ton message</label>
+<textarea id="nachricht-fr" name="nachricht" rows="7" maxlength="5000" required></textarea>
+<label for="antwort-fr">Ton adresse e-mail pour la réponse</label>
+<input id="antwort-fr" name="antwort" type="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autocomplete="email" required>
+<div class="falle" aria-hidden="true"><label for="website-fr">Website</label><input id="website-fr" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="recht">Nous n'utilisons ton message et ton adresse que pour te répondre. Plus de détails dans la <a href="datenschutz.html">politique de confidentialité</a>.</p>
+<button type="submit" disabled>Envoyer</button>
+<p class="meldung" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<footer><nav><span data-fuss="de"><a href="index.html">Start</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="konto-loeschen.html">Konto und Daten löschen</a></span><span data-fuss="en" hidden><a href="index.html">Home</a> · <a href="impressum.html">Legal notice</a> · <a href="datenschutz.html">Privacy</a> · <a href="nutzungsbedingungen.html">Terms of use</a> · <a href="konto-loeschen.html">Delete your account and data</a></span><span data-fuss="tr" hidden><a href="index.html">Ana Sayfa</a> · <a href="impressum.html">Künye</a> · <a href="datenschutz.html">Gizlilik</a> · <a href="nutzungsbedingungen.html">Kullanım koşulları</a> · <a href="konto-loeschen.html">Hesabını ve verilerini sil</a></span><span data-fuss="sv" hidden><a href="index.html">Start</a> · <a href="impressum.html">Juridisk information</a> · <a href="datenschutz.html">Integritet</a> · <a href="nutzungsbedingungen.html">Användarvillkor</a> · <a href="konto-loeschen.html">Radera konto och data</a></span><span data-fuss="nl" hidden><a href="index.html">Home</a> · <a href="impressum.html">Colofon</a> · <a href="datenschutz.html">Privacy</a> · <a href="nutzungsbedingungen.html">Gebruiksvoorwaarden</a> · <a href="konto-loeschen.html">Account en gegevens wissen</a></span><span data-fuss="nb" hidden><a href="index.html">Forsiden</a> · <a href="impressum.html">Juridisk informasjon</a> · <a href="datenschutz.html">Personvern</a> · <a href="nutzungsbedingungen.html">Bruksvilkår</a> · <a href="konto-loeschen.html">Slett konto og data</a></span><span data-fuss="da" hidden><a href="index.html">Forside</a> · <a href="impressum.html">Juridisk information</a> · <a href="datenschutz.html">Privatliv</a> · <a href="nutzungsbedingungen.html">Brugsvilkår</a> · <a href="konto-loeschen.html">Slet konto og data</a></span><span data-fuss="fr" hidden><a href="index.html">Accueil</a> · <a href="impressum.html">Mentions légales</a> · <a href="datenschutz.html">Confidentialité</a> · <a href="nutzungsbedingungen.html">Conditions d'utilisation</a> · <a href="konto-loeschen.html">Supprimer ton compte et tes données</a></span></nav><br><a href="https://www.tiktok.com/@zmaj.learnbosnian" rel="noopener">TikTok</a> · <a href="https://www.instagram.com/zmaj.learnbosnian/" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@zmaj.learnbosnian" rel="noopener">YouTube</a><br>Ajdin Hasić · Gießener Str. 17 · 35435 Wettenberg · zmaj.lernapp@gmail.com · USt-IdNr.: DE465139848<br><small>App icon: illustration created with Google Gemini, edited.</small></footer>
+</div>
+<script>
+(function(){
+  var knoepfe = document.querySelectorAll('.sprachen button');
+  var teile = document.querySelectorAll('section[data-sprache]');
+  var fuesse = document.querySelectorAll('[data-fuss]');
+  function zeige(code){
+    var gefunden = false;
+    teile.forEach(function(s){
+      var an = s.dataset.sprache === code;
+      s.hidden = !an;
+      if(an) gefunden = true;
+    });
+    // Die Fusszeile wandert mit. Gibt es sie in der Sprache nicht,
+    // bleibt die englische stehen - wie beim Inhalt darueber.
+    var hatFuss = false;
+    fuesse.forEach(function(f){ if(f.dataset.fuss === code) hatFuss = true; });
+    fuesse.forEach(function(f){
+      f.hidden = hatFuss ? (f.dataset.fuss !== code) : (f.dataset.fuss !== 'en');
+    });
+    knoepfe.forEach(function(b){ b.setAttribute('aria-current', b.dataset.sprache === code); });
+    document.documentElement.lang = code;
+    if(!gefunden) zeige('de');
+    try{ localStorage.setItem('zmaj_seite_sprache', code); }catch(e){}
+  }
+  knoepfe.forEach(function(b){ b.addEventListener('click', function(){ zeige(b.dataset.sprache); }); });
+  var start = 'de';
+  try{ start = localStorage.getItem('zmaj_seite_sprache') || (navigator.language||'de').slice(0,2).toLowerCase(); }catch(e){}
+  zeige(start);
+})();
+</script>
+<script>
+(function(){
+  var PROJEKT = "zmaj-lernapp", SCHLUESSEL = "AIzaSyCVsDxOGH9mze2Mry2u6jSw47RIzYBk7H8";
+  var KONTO = 'https://identitytoolkit.googleapis.com/v1/accounts:';
+  var DOKUMENTE = 'https://firestore.googleapis.com/v1/projects/' + encodeURIComponent(PROJEKT)
+    + '/databases/(default)/documents';
+  var formulare = document.querySelectorAll('form.kontakt');
+  var laeuft = false;
+
+  // Nach 20 Sekunden ohne Antwort gilt es als gescheitert, wie in der App
+  // (cloudFirestore in web/index.html). Kein Netz traegt netz - die Seite
+  // sagt dann "Keine Verbindung" statt "hat nicht geklappt".
+  async function senden(url, daten, ausweis){
+    var ab = new AbortController();
+    var uhr = setTimeout(function(){ ab.abort(); }, 20000);
+    var kopf = {'Content-Type': 'application/json'};
+    if(ausweis) kopf.Authorization = 'Bearer ' + ausweis;
+    try{
+      var r;
+      try{
+        r = await fetch(url, {method: 'POST', headers: kopf, body: JSON.stringify(daten),
+                              cache: 'no-store', credentials: 'omit', signal: ab.signal});
+      }catch(e){ var n = new Error('netz'); n.netz = true; throw n; }
+      if(!r.ok) throw new Error('status ' + r.status);
+      return await r.json();
+    }finally{ clearTimeout(uhr); }
+  }
+
+  // Anonym anmelden, die Nachricht unter der eigenen uid ablegen, die
+  // Anmeldung wieder loeschen. zeit setzt der Server (firestore.rules:
+  // zeit == request.time), exists: false macht daraus ein reines Anlegen.
+  async function ablegen(text, antwort, sprache){
+    var konto = await senden(KONTO + 'signUp?key=' + encodeURIComponent(SCHLUESSEL), {returnSecureToken: true});
+    if(!konto || typeof konto.localId !== 'string' || !konto.localId || !konto.idToken) throw new Error('anmeldung');
+    try{
+      await senden(DOKUMENTE + ':commit', {writes: [{
+        update: {name: 'projects/' + PROJEKT + '/databases/(default)/documents/nachrichten/' + konto.localId,
+                 fields: {text: {stringValue: text}, antwort: {stringValue: antwort},
+                          sprache: {stringValue: sprache}}},
+        updateTransforms: [{fieldPath: 'zeit', setToServerValue: 'REQUEST_TIME'}],
+        currentDocument: {exists: false}}]}, konto.idToken);
+    }finally{
+      // Auch wenn das Ablegen scheiterte: Die anonyme Anmeldung soll nicht
+      // liegen bleiben. Klappt das Loeschen nicht, kann sie trotzdem nichts
+      // mehr - die Regeln erlauben ihr genau ein Dokument.
+      try{ await senden(KONTO + 'delete?key=' + encodeURIComponent(SCHLUESSEL), {idToken: konto.idToken}); }catch(e){}
+    }
+  }
+
+  function melden(form, art){
+    var m = form.querySelector('.meldung');
+    m.textContent = art ? (form.dataset[art] || '') : '';
+    m.className = 'meldung' + (art === 'danke' ? ' gut' : (art === 'fehler' || art === 'keinNetz') ? ' schlecht' : '');
+  }
+
+  function fertig(form){
+    formulare.forEach(function(f){ f.reset(); melden(f, null); });
+    melden(form, 'danke');
+  }
+
+  formulare.forEach(function(form){
+    var knopf = form.querySelector('button[type="submit"]');
+    // Ohne Skript bleibt der Knopf aus: Ein Formular ohne fetch schickte
+    // die Nachricht sonst an GitHub Pages statt an uns.
+    knopf.disabled = false;
+    // Dasselbe Feld in den anderen Sprachen mitfuehren. Wer die Sprache
+    // wechselt, saehe sonst ein leeres Formular.
+    form.addEventListener('input', function(ev){
+      var name = ev.target.name;
+      if(name !== 'nachricht' && name !== 'antwort') return;
+      formulare.forEach(function(f){ if(f !== form) f.elements[name].value = ev.target.value; });
+    });
+    form.addEventListener('submit', async function(ev){
+      ev.preventDefault();
+      if(laeuft) return;
+      var feld = form.elements;
+      var text = feld.nachricht.value.trim();
+      var antwort = feld.antwort.value.trim();
+      if(!text){ feld.nachricht.value = ''; form.reportValidity(); return; }
+      // Das Fallenfeld "website" sieht und fuellt nur ein Programm. Dann
+      // tut die Seite so, als sei alles angekommen, und schickt nichts.
+      if(feld.website.value){ fertig(form); return; }
+      laeuft = true;
+      knopf.disabled = true;
+      melden(form, 'sendet');
+      try{
+        await ablegen(text, antwort, form.dataset.sprache);
+        fertig(form);
+      }catch(e){
+        melden(form, e && e.netz ? 'keinNetz' : 'fehler');
+      }finally{
+        laeuft = false;
+        knopf.disabled = false;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
