@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-a/iNn1Z1d3rsdGHPhdxbQnP8gjPGWBRGfogRR9lzOW8='; style-src 'sha256-eedLvBwCbBCcWHB+u+/cxn4OwCR/jiYUoSAcHOEIADg='; img-src 'self'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-+x55FoJurQPzDzZD4z534tZlMr8Tqs44Y+02gKnwQH4='; style-src 'sha256-eedLvBwCbBCcWHB+u+/cxn4OwCR/jiYUoSAcHOEIADg='; img-src 'self'; form-action 'none'; base-uri 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn Bosnian with Zmaj</title>
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -237,7 +237,7 @@ footer{margin-top:34px;color:var(--leise);font-size:13px}
   document.querySelectorAll('a.appstore').forEach(function(a){ a.href = APPLE.replace('__QUELLE__', quelle); });
   var ua = navigator.userAgent || '';
   var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  /* 23.11.2026, Ajdin: „mach bei beiden gleich“ – Android und iPhone sehen beide Knöpfe, App Store zuerst (Apple-Regel). */
+  /* Beide Store-Knöpfe auf allen Geräten, App Store zuerst. */
   var knoepfe = document.querySelectorAll('.sprachen button');
   var teile = document.querySelectorAll('section[data-sprache]');
   var fuesse = document.querySelectorAll('[data-fuss]');
